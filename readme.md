@@ -93,6 +93,7 @@ Chaque nouveau est assigné à un référent, supervisé par un leader, le tout 
 - Responsable technique : Wilgas ADJOVI
 - Designer / UX : Wilgas A.
 - Testeurs : Dr_Love
+- Un essaie
 
 
 
