@@ -72,8 +72,8 @@ Chaque nouveau est assigné à un référent, supervisé par un leader, le tout 
 - dim1: ,
 - dim2: ,
 - dim3: ,
-- dim4: ,
-- referentId : ,
+- dim4: 
+- referentId : 
 
 
 📅 Planning prévisionnel
