@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { register, login } = require('../controllers/authController');
 const authMiddleware = require('../middlewares/authMiddleware');
+const checkRole = require('../middlewares/checkRole');
 const User = require('../models/User');
 
 
@@ -16,5 +17,7 @@ router.get('/me', authMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur', error: err });
   }
 });
+router.post('/membres', authMiddleware, checkRole(['referent']), ajouterMembre);
+router.get('/membres', authMiddleware, checkRole(['leader', 'admin']), listerMembres);
 
 module.exports = router;
