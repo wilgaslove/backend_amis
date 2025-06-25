@@ -5,15 +5,15 @@ const jwt = require('jsonwebtoken');
 // Inscription
 exports.register = async (req, res) => {
   try {
-    const { user_login, nom, prenom, motDePasse, role } = req.body;
+    const { userLogin, nom, prenom, motDePasse, role } = req.body;
 
-    const existingUser = await User.findOne({ user_login });
+    const existingUser = await User.findOne({ userLogin });
     if (existingUser) return res.status(400).json({ message: 'Utilisateur déjà existant' });
 
     const hashedPassword = await bcrypt.hash(motDePasse, 10);
 
     const newUser = new User({
-      user_login,
+      userLogin,
       nom,
       prenom,
       motDePasse: hashedPassword,
@@ -30,9 +30,9 @@ exports.register = async (req, res) => {
 // Connexion
 exports.login = async (req, res) => {
   try {
-    const { user_login, motDePasse } = req.body;
+    const { userLogin, motDePasse } = req.body;
 
-    const user = await User.findOne({ user_login });
+    const user = await User.findOne({ userLogin });
     if (!user) return res.status(404).json({ message: 'Utilisateur non trouvé' });
 
     const isMatch = await bcrypt.compare(motDePasse, user.motDePasse);
