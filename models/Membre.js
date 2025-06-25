@@ -12,6 +12,7 @@ const membreSchema = new mongoose.Schema({
   rdvPasteur: Date,
   visiteMaison: Boolean,
   contactRegulier: Boolean,
+  note: String,
   suivi: {
     dimanche1: { type: Boolean, default: false },
     dimanche2: { type: Boolean, default: false },
