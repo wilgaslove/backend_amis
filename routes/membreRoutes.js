@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { ajouterMembre, listerMembres, membresParReferent  } = require("../controllers/membreController");
+const { ajouterMembre, listerMembres, membresParReferent, modifierMembre  } = require("../controllers/membreController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 router.post('/membres', authMiddleware, ajouterMembre);
@@ -15,6 +15,9 @@ router.get('/membres', authMiddleware, checkRole(['admin', 'leader']), listerMem
 
 // Lister les membres du référent connecté
 router.get('/mes-membres', authMiddleware, checkRole(['referent']), membresParReferent);
+
+// ✅ Modifier un membre (référent/admin/leader)
+router.put('/membres/:id', authMiddleware, checkRole(['referent', 'admin', 'leader']), modifierMembre);
 
 
 module.exports = router;
