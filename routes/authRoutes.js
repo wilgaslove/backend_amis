@@ -4,6 +4,8 @@ const { register, login } = require('../controllers/authController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const checkRole = require('../middlewares/checkRole');
 const User = require('../models/User');
+const { ajouterMembre } = require('../controllers/membreController');
+const { listerMembres } = require('../controllers/membreController');
 
 
 router.post('/register', register);

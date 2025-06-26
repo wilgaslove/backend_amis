@@ -19,7 +19,11 @@ const membreSchema = new mongoose.Schema({
     dimanche3: { type: Boolean, default: false },
     dimanche4: { type: Boolean, default: false }
   },
-  referentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  referentId: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User', 
+    required: true
+   }
 });
 
 module.exports = mongoose.model("Membre", membreSchema);
