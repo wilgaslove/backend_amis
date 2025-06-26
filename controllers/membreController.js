@@ -1,6 +1,7 @@
 const Membre = require("../models/Membre");
 
 
+
 exports.ajouterMembre = async (req, res) => {
   try {
     const membreData = req.body;
@@ -16,11 +17,24 @@ exports.ajouterMembre = async (req, res) => {
 };
 
 
+
 exports.listerMembres = async (req, res) => {
   try {
     const membres = await Membre.find();
     res.json(membres);
   } catch (err) {
     res.status(500).json({ message: "Erreur", error: err });
+  }
+};
+
+
+exports.membresParReferent = async (req, res) => {
+  try {
+    const referentId = req.user.id;
+
+    const membres = await Membre.find({ referentId });
+    res.status(200).json(membres);
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur serveur', error });
   }
 };
