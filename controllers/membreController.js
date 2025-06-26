@@ -61,3 +61,26 @@ exports.modifierMembre = async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur', error });
   }
 };
+
+
+exports.supprimerMembre = async (req, res) => {
+  try {
+    const membreId = req.params.id;
+
+    const membre = await Membre.findById(membreId);
+    if (!membre) {
+      return res.status(404).json({ message: 'Membre non trouvé' });
+    }
+
+    // Si le référent tente de supprimer un membre qui ne lui appartient pas
+    if (req.user.role === 'referent' && membre.referentId.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Accès refusé. Ce membre ne vous est pas assigné.' });
+    }
+
+    await Membre.findByIdAndDelete(membreId);
+
+    res.status(200).json({ message: 'Membre supprimé avec succès.' });
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur serveur', error });
+  }
+};
