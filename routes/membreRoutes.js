@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { ajouterMembre, listerMembres, membresParReferent, modifierMembre, supprimerMembre } = require("../controllers/membreController");
-const authMiddleware = require("../middlewares/authMiddleware");
+const {
+  ajouterMembre,
+  listerMembres,
+  membresParReferent,
+  modifierMembre,
+  supprimerMembre
+} = require("../controllers/membreController");
 
-router.post('/membres', authMiddleware, ajouterMembre);
-router.get('/membres', authMiddleware, listerMembres);
-
+const authMiddleware = require('../middlewares/authMiddleware'); // ✅ Garder une seule fois
+const checkRole = require('../middlewares/checkRole');
 
 // Ajouter un membre (référent uniquement)
 router.post('/membres', authMiddleware, checkRole(['referent']), ajouterMembre);
@@ -16,11 +20,10 @@ router.get('/membres', authMiddleware, checkRole(['admin', 'leader']), listerMem
 // Lister les membres du référent connecté
 router.get('/mes-membres', authMiddleware, checkRole(['referent']), membresParReferent);
 
-// ✅ Modifier un membre (référent/admin/leader)
+// Modifier un membre (référent/admin/leader)
 router.put('/membres/:id', authMiddleware, checkRole(['referent', 'admin', 'leader']), modifierMembre);
 
-// ✅ Supprimer un membre
+// Supprimer un membre (référent/admin/leader)
 router.delete('/membres/:id', authMiddleware, checkRole(['referent', 'admin', 'leader']), supprimerMembre);
-
 
 module.exports = router;
