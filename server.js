@@ -3,10 +3,18 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const membreRoutes = require('./routes/membreRoutes');
 const authRoutes = require('./routes/authRoutes');
+const cors = require('cors');
 
 dotenv.config();
 
 const app = express();
+
+// URL du frontend 
+// ✅ Autoriser les requêtes venant du frontend Vue.js
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true, // Si tu utilises les cookies ou headers d'authentification
+}));
 
 // Middleware pour parser le JSON
 app.use(express.json());
@@ -25,3 +33,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Serveur lancé sur http://localhost:${PORT}`);
 });
+
+
