@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const membreSchema = new mongoose.Schema({
-  fistName: String,
+  firstName: String,
   lastName: String,
   profession: String,
   contact: String,
