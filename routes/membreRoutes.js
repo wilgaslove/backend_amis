@@ -5,11 +5,15 @@ const {
   listerMembres,
   membresParReferent,
   modifierMembre,
-  supprimerMembre
+  supprimerMembre,
+  
 } = require("../controllers/membreController");
 
 const authMiddleware = require('../middlewares/authMiddleware'); // ✅ Garder une seule fois
 const checkRole = require('../middlewares/checkRole');
+
+// // ✅ Ta nouvelle route ici
+// router.put('/membres/:id/suivi', authMiddleware, checkRole(['referent', 'admin', 'leader']), mettreAJourSuivi);
 
 // Ajouter un membre (référent uniquement)
 router.post('/membres', authMiddleware, checkRole(['referent']), ajouterMembre);
@@ -26,4 +30,6 @@ router.put('/membres/:id', authMiddleware, checkRole(['referent', 'admin', 'lead
 // Supprimer un membre (référent/admin/leader)
 router.delete('/membres/:id', authMiddleware, checkRole(['referent', 'admin', 'leader']), supprimerMembre);
 
+
 module.exports = router;
+

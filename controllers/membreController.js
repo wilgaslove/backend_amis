@@ -1,7 +1,6 @@
 const Membre = require("../models/Membre");
 
 
-
 exports.ajouterMembre = async (req, res) => {
   try {
     const membreData = req.body;
@@ -84,3 +83,19 @@ exports.supprimerMembre = async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur', error });
   }
 };
+
+// // Mise ajout sur 4 dim
+// exports.mettreAJourSuivi = async (req, res) => {
+//   try {
+//     const { suivi } = req.body;
+//     const membre = await Membre.findByIdAndUpdate(
+//       req.params.id,
+//       { $set: { suivi } },
+//       { new: true }
+//     );
+//     if (!membre) return res.status(404).json({ message: "Membre non trouvé" });
+//     res.json(membre);
+//   } catch (error) {
+//     res.status(500).json({ message: "Erreur mise à jour du suivi" });
+//   }
+// };
