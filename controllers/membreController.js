@@ -1,3 +1,4 @@
+const User = require ("../models/User")
 const Membre = require("../models/Membre");
 
 
@@ -98,3 +99,23 @@ exports.supprimerMembre = async (req, res) => {
   }
 };
 
+
+// Récupérer tous les référents
+exports.listerReferents = async (req, res) => {
+  try {
+    const referents = await User.find({ role: 'referent' }).select('-password');
+    res.json(referents);
+  } catch (err) {
+    res.status(500).json({ message: "Erreur chargement des référents" });
+  }
+};
+
+// Récupérer les membres d’un référent spécifique (pour admin/leader)
+exports.membresDuReferent = async (req, res) => {
+  try {
+    const membres = await Membre.find({ referent: req.params.id });
+    res.json(membres);
+  } catch (err) {
+    res.status(500).json({ message: "Erreur chargement des membres du référent" });
+  }
+};

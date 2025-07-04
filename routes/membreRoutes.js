@@ -6,7 +6,9 @@ const {
   membresParReferent,
   modifierMembre,
   supprimerMembre,
-  compterMembresParReferent 
+  compterMembresParReferent, 
+  listerReferents,
+  membresDuReferent
 } = require("../controllers/membreController");
 
 const authMiddleware = require('../middlewares/authMiddleware'); // ✅ Garder une seule fois
@@ -34,3 +36,7 @@ router.delete('/membres/:id', authMiddleware, checkRole(['referent', 'admin', 'l
 router.get('/mes-membres/count', authMiddleware, checkRole(['referent']), compterMembresParReferent);
 module.exports = router;
 
+
+// router.get('/referents', authMiddleware, checkRole(['admin', 'leader']), listerReferents);
+
+// router.get('/referents/:id/membres', authMiddleware, checkRole(['admin', 'leader']), membresDuReferent);
