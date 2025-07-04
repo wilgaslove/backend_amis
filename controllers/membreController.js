@@ -27,6 +27,8 @@ exports.listerMembres = async (req, res) => {
 };
 
 
+
+
 exports.membresParReferent = async (req, res) => {
   try {
     const referentId = req.user.id;
@@ -37,6 +39,18 @@ exports.membresParReferent = async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur', error });
   }
 };
+
+// 🧮 Compter les membres du référent connecté
+exports.compterMembresParReferent = async (req, res) => {
+  try {
+    const referentId = req.user.id; // ID du référent connecté (grâce au middleware auth)
+    const count = await Membre.countDocuments({ referentId }); // Assure-toi que chaque membre a un champ `referentId`
+    res.json({ total: count });
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors du comptage des membres." });
+  }
+};
+
 
 exports.modifierMembre = async (req, res) => {
   try {
@@ -84,18 +98,3 @@ exports.supprimerMembre = async (req, res) => {
   }
 };
 
-// // Mise ajout sur 4 dim
-// exports.mettreAJourSuivi = async (req, res) => {
-//   try {
-//     const { suivi } = req.body;
-//     const membre = await Membre.findByIdAndUpdate(
-//       req.params.id,
-//       { $set: { suivi } },
-//       { new: true }
-//     );
-//     if (!membre) return res.status(404).json({ message: "Membre non trouvé" });
-//     res.json(membre);
-//   } catch (error) {
-//     res.status(500).json({ message: "Erreur mise à jour du suivi" });
-//   }
-// };
