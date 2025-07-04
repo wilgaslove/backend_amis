@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const membreRoutes = require('./routes/membreRoutes');
 const authRoutes = require('./routes/authRoutes');
 const cors = require('cors');
+const userRoutes = require('./routes/userRoutes');
+
 
 dotenv.config();
 
@@ -25,13 +27,17 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.error('❌ Erreur de connexion :', err));
 
 // Routes
-app.use('/api', authRoutes);     // /api/register, /api/login
-app.use('/api', membreRoutes);   // /api/membres
+// /api/register, /api/login
+app.use('/api', authRoutes);     
+// /api/membres
+app.use('/api', membreRoutes);   
+// adapte le nom au tien
+app.use('/api', userRoutes);
+
 
 // Lancement du serveur
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Serveur lancé sur http://localhost:${PORT}`);
 });
-
 
