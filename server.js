@@ -12,6 +12,11 @@ dotenv.config();
 
 const app = express();
 
+app.get('/test-direct', (req, res) => {
+  console.log("✅ Route /test-direct appelée !");
+  res.send("Test direct OK");
+});
+
 // URL du frontend 
 // ✅ Autoriser les requêtes venant du frontend Vue.js
 app.use(cors({
@@ -37,9 +42,6 @@ app.use('/api', userRoutes);
 
 //api récupération des référents
 app.use('/api/referents', referentRoutes); 
-
-
-
 
 
 

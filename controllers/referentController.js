@@ -2,17 +2,24 @@ const User = require('../models/User');
 const Membre = require('../models/Membre');
 
 // ✅ Liste tous les référents
-const listerReferents = async (req, res) => {
+
+exports.listerReferents = async (req, res) => {
   try {
+    console.log("📥 Route /api/referents appelée !");
+    
     const referents = await User.find({ role: 'referent' }).select('-password');
-    res.json(referents);
+
+    console.log("✅ Référents récupérés :", referents.length);
+
+    res.status(200).json(referents);
   } catch (error) {
+    console.error("❌ Erreur dans listerReferents:", error);
     res.status(500).json({ message: 'Erreur lors de la récupération des référents', error });
   }
 };
 
 // ✅ Liste les membres associés à un référent
-const getMembresDuReferent = async (req, res) => {
+exports.getMembresDuReferent = async (req, res) => {
   try {
     const referentId = req.params.id;
 
@@ -30,10 +37,10 @@ const getMembresDuReferent = async (req, res) => {
   }
 };
 
-const Referent = require('../models/Referent');
+// const Referent = require('../models/Referent');
 
 // Leader laisse un commentaire sur un référent
-const ajouterCommentaireLeader = async (req, res) => {
+exports.ajouterCommentaireLeader = async (req, res) => {
   try {
     const { referentId } = req.params;
     const { commentaire } = req.body;
@@ -51,7 +58,7 @@ const ajouterCommentaireLeader = async (req, res) => {
 };
 
 // Admin laisse un commentaire sur un référent
-const ajouterCommentaireAdmin = async (req, res) => {
+exports.ajouterCommentaireAdmin = async (req, res) => {
   try {
     const { referentId } = req.params;
     const { commentaire } = req.body;
@@ -69,9 +76,3 @@ const ajouterCommentaireAdmin = async (req, res) => {
 };
 
 
-module.exports = {
-  listerReferents,
-  getMembresDuReferent,
-  ajouterCommentaireLeader,
-  ajouterCommentaireAdmin
-};
