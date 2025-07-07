@@ -72,4 +72,6 @@ const ajouterCommentaireAdmin = async (req, res) => {
 module.exports = {
   listerReferents,
   getMembresDuReferent,
+  ajouterCommentaireLeader,
+  ajouterCommentaireAdmin
 };

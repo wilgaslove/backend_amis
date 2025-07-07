@@ -5,7 +5,9 @@ const checkRole = require('../middlewares/checkRole');
 
 const {
   listerReferents,
-  getMembresDuReferent
+  getMembresDuReferent,
+  ajouterCommentaireLeader,
+  ajouterCommentaireAdmin
 } = require('../controllers/referentController');
 
 const {
