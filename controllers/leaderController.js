@@ -2,7 +2,7 @@ const User = require('../models/User');
 const Membre = require('../models/Membre');
 
 // ✅ Liste tous les leaders
-const listerLeaders = async (req, res) => {
+exports.listerLeaders = async (req, res) => {
   try {
     const leaders = await User.find({ role: 'leader' }).select('-password').lean();
     res.json(leaders);
@@ -12,7 +12,7 @@ const listerLeaders = async (req, res) => {
 };
 
 // ✅ Liste des membres associés à un leader
-const getMembresDuLeader = async (req, res) => {
+exports.getMembresDuLeader = async (req, res) => {
   try {
     const leaderId = req.params.id;
 
@@ -37,7 +37,3 @@ const getMembresDuLeader = async (req, res) => {
   }
 };
 
-module.exports = {
-  listerLeaders,
-  getMembresDuLeader,
-};
