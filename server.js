@@ -5,6 +5,7 @@ const membreRoutes = require('./routes/membreRoutes');
 const authRoutes = require('./routes/authRoutes');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
+const referentRoutes = require('./routes/referentRoutes'); 
 
 
 dotenv.config();
@@ -33,6 +34,13 @@ app.use('/api', authRoutes);
 app.use('/api', membreRoutes);   
 // adapte le nom au tien
 app.use('/api', userRoutes);
+
+//api récupération des référents
+app.use('/api/referents', referentRoutes); 
+
+
+
+
 
 
 // Lancement du serveur
