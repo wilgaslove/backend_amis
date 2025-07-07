@@ -30,6 +30,45 @@ const getMembresDuReferent = async (req, res) => {
   }
 };
 
+const Referent = require('../models/Referent');
+
+// Leader laisse un commentaire sur un référent
+const ajouterCommentaireLeader = async (req, res) => {
+  try {
+    const { referentId } = req.params;
+    const { commentaire } = req.body;
+
+    const referent = await Referent.findById(referentId);
+    if (!referent) return res.status(404).json({ message: 'Référent introuvable' });
+
+    referent.commentaireLeader = commentaire;
+    await referent.save();
+
+    res.json({ message: 'Commentaire du leader ajouté', referent });
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur ajout commentaire', error });
+  }
+};
+
+// Admin laisse un commentaire sur un référent
+const ajouterCommentaireAdmin = async (req, res) => {
+  try {
+    const { referentId } = req.params;
+    const { commentaire } = req.body;
+
+    const referent = await Referent.findById(referentId);
+    if (!referent) return res.status(404).json({ message: 'Référent introuvable' });
+
+    referent.CommantaireAdmin = commentaire;
+    await referent.save();
+
+    res.json({ message: 'Commentaire de l\'admin ajouté', referent });
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur ajout commentaire admin', error });
+  }
+};
+
+
 module.exports = {
   listerReferents,
   getMembresDuReferent,
