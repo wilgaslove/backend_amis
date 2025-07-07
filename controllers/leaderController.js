@@ -4,26 +4,32 @@ const Membre = require('../models/Membre');
 // ✅ Liste tous les leaders
 const listerLeaders = async (req, res) => {
   try {
-    const leaders = await User.find({ role: 'leader' }).select('-password');
+    const leaders = await User.find({ role: 'leader' }).select('-password').lean();
     res.json(leaders);
   } catch (error) {
     res.status(500).json({ message: 'Erreur lors de la récupération des leaders', error });
   }
 };
 
-// ✅ Liste tous les membres associés à un leader (via ses référents)
+// ✅ Liste des membres associés à un leader
 const getMembresDuLeader = async (req, res) => {
   try {
     const leaderId = req.params.id;
 
-    // Récupérer les référents liés à ce leader
+    // Vérifie que le leader existe
+    const leader = await User.findById(leaderId);
+    if (!leader || leader.role !== 'leader') {
+      return res.status(404).json({ message: 'Leader non trouvé' });
+    }
+
+    // Récupère les référents liés à ce leader
     const referents = await User.find({ role: 'referent', leader: leaderId });
 
-    // Extraire les ID des référents
+    // Extraire les IDs des référents
     const referentIds = referents.map(r => r._id);
 
-    // Chercher les membres liés à ces référents
-    const membres = await Membre.find({ referent: { $in: referentIds } });
+    // Récupère les membres associés
+    const membres = await Membre.find({ referent: { $in: referentIds } }).lean();
 
     res.json(membres);
   } catch (error) {
@@ -33,5 +39,5 @@ const getMembresDuLeader = async (req, res) => {
 
 module.exports = {
   listerLeaders,
-  getMembresDuLeader
+  getMembresDuLeader,
 };
