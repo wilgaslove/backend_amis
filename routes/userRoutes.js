@@ -16,10 +16,10 @@ const {
 } = require('../controllers/leaderController');
 
 // ✅ Liste des référents
-router.get('/referents', authMiddleware, checkRole(['admin', 'leader']), listerReferents);
+//  router.get('/referents', authMiddleware, checkRole(['admin', 'leader']), listerReferents);
 
 // ✅ Membres d’un référent
-router.get('/referents/:id/membres', authMiddleware, checkRole(['admin', 'leader']), getMembresDuReferent);
+ router.get('/referents/:id/membres', authMiddleware, checkRole(['admin', 'leader']), getMembresDuReferent);
 
 // ✅ Liste des leaders
 router.get('/leaders', authMiddleware, checkRole(['admin']), listerLeaders);

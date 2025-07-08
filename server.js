@@ -33,14 +33,14 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.error('❌ Erreur de connexion :', err));
 
 // Routes
-// /api/register, /api/login
+//api/register, /api/login
 app.use('/api', authRoutes);     
-// /api/membres
+// // /api/membres
 app.use('/api', membreRoutes);   
 // adapte le nom au tien
 app.use('/api', userRoutes);
 
-//api récupération des référents
+// //api récupération des référents
 app.use('/api/referents', referentRoutes); 
 
 
