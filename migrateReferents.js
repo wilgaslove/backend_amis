@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 const Membre = require('./models/Membre');
 
-mongoose.connect('mongodb://127.0.0.1:27017/nom_de_ta_base', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(
+  'mongodb+srv://<username>:<password>@cluster0.abcde.mongodb.net/nom_de_ta_base?retryWrites=true&w=majority'
+)
 .then(async () => {
-  console.log("✅ Connecté à MongoDB");
+  console.log("✅ Connecté à MongoDB Atlas");
 
   const membres = await Membre.find({ "suivi.referentId": { $exists: true } });
 
