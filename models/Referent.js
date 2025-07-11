@@ -11,7 +11,7 @@ const referentSchema = new Schema({
   },
   membres: [
     {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Membre'
     }
   ]

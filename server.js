@@ -5,7 +5,7 @@ const membreRoutes = require('./routes/membreRoutes');
 const authRoutes = require('./routes/authRoutes');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
-const referentRoutes = require('./routes/referentRoutes'); 
+// const referentRoutes = require('./routes/referentRoutes'); 
 
 
 dotenv.config();
@@ -37,11 +37,11 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use('/api', authRoutes);     
 // // /api/membres
 app.use('/api', membreRoutes);   
-// adapte le nom au tien
+// api/userRoutes
 app.use('/api', userRoutes);
 
 // //api récupération des référents
-app.use('/api/referents', referentRoutes); 
+//  app.use('/api/referents', referentRoutes); 
 
 
 
