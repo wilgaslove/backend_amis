@@ -22,9 +22,14 @@ const membreSchema = new mongoose.Schema({
   },
   referentId: { 
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User', 
+    ref: 'Referent',  //User
     required: true
-   }
+   },
+   referent: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Referent',  //User
+     required: true
+  }
 });
 
 module.exports = mongoose.model("Membre", membreSchema);
