@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Membre = require('./models/Membre');
 
 mongoose.connect(
-  'mongodb+srv://<username>:<password>@cluster0.abcde.mongodb.net/nom_de_ta_base?retryWrites=true&w=majority'
+  'mongodb+srv://foimotivation216:5u2O8s6P4yl5JktI@clusteradn.kygkj8x.mongodb.net/ma_base?retryWrites=true&w=majority'
 )
 .then(async () => {
   console.log("✅ Connecté à MongoDB Atlas");
