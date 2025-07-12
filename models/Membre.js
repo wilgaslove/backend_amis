@@ -28,7 +28,7 @@ const membreSchema = new mongoose.Schema({
    referent: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Referent',  //User
-     required: true
+   
   }
 });
 

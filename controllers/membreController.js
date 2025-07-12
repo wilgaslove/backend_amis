@@ -1,22 +1,44 @@
 
 const Membre = require("../models/Membre");
 
-
 exports.ajouterMembre = async (req, res) => {
   try {
-    const membreData = req.body;
-    membreData.referentId = req.user.id; // ID du référent connecté
+    const user = req.user;
 
-    const nouveauMembre = new Membre(membreData);
+    // ⚠️ Si l'utilisateur est un référent, on ajoute son ID comme `referentId`
+    if (user.role === 'referent') {
+      req.body.referentId = user._id;
+    }
+
+    const nouveauMembre = new Membre(req.body);
     await nouveauMembre.save();
 
-    res.status(201).json({ message: "Membre ajouté avec succès", membre: nouveauMembre });
-  } catch (error) {
-    res.status(500).json({ message: "Erreur serveur", error });
+    res.status(201).json(nouveauMembre);
+  } catch (err) {
+    console.error("❌ Erreur ajout membre :", err);
+    res.status(500).json({ message: "Erreur lors de l'ajout du membre", error: err });
   }
 };
 
 
+// exports.ajouterMembre = async (req, res) => {
+//   try {
+//     const user = req.user;
+
+//     // ⚠️ Si l'utilisateur est un référent, on ajoute son ID comme `referentId`
+//     if (user.role === 'referent') {
+//       req.body.referentId = user._id;
+//     }
+
+//     const nouveauMembre = new Membre(req.body);
+//     await nouveauMembre.save();
+
+//     res.status(201).json(nouveauMembre);
+//   } catch (err) {
+//     console.error("❌ Erreur ajout membre :", err);
+//     res.status(500).json({ message: "Erreur lors de l'ajout du membre", error: err });
+//   }
+// };
 
 exports.listerMembres = async (req, res) => {
   try {
