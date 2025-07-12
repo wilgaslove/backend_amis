@@ -42,6 +42,8 @@ app.use('/api', userRoutes);
 
 // //api récupération des référents
 //  app.use('/api/referents', referentRoutes); 
+app.use('/api/referents', require('./routes/referentRoutes'));
+
 
 
 

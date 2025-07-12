@@ -24,12 +24,7 @@ const membreSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Referent',  //User
     required: true
-   },
-   referent: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Referent',  //User
-   
-  }
+   }
 });
 
 module.exports = mongoose.model("Membre", membreSchema);
