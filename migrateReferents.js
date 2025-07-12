@@ -24,3 +24,4 @@ mongoose.connect(
   console.error("❌ Erreur de connexion :", err);
   process.exit(1);
 });
+
