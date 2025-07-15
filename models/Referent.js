@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const referentSchema = new Schema({
   commentaireLeader: String,
   commentaireAdmin: String, 
-  user: {
+  user: {  // ← ce champ te permet d’accéder aux infos de connexion
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
