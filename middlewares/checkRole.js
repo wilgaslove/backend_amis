@@ -25,12 +25,14 @@
 //   };
 // };
 
-module.exports = (roles) => {
+
+const checkRole = (rolesAutorises) => {
   return (req, res, next) => {
-    console.log("🔍 Utilisateur connecté :", req.user);
-    if (!req.user || !roles.includes(req.user.role)) {
-      return res.status(403).json({ message: 'Accès interdit : rôle insuffisant' });
+    if (!req.user || !rolesAutorises.includes(req.user.role)) {
+      return res.status(403).json({ message: 'Accès refusé : rôle insuffisant' });
     }
     next();
   };
 };
+
+module.exports = checkRole;

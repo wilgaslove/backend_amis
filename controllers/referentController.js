@@ -9,6 +9,7 @@ const Referent = require('../models/Referent');
 // Création d'un référent par un leader. 
 exports.creerReferent = async (req, res) => {
   console.log("📥 Route POST /api/referents/creer appelée");
+  console.log("🔐 Utilisateur connecté :", req.user);
   try {
     const { nom, prenom, userLogin, motDePasse } = req.body;
 
