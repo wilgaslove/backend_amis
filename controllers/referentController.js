@@ -1,4 +1,5 @@
-const User = require('../models/User');
+const bcrypt = require('bcrypt')
+const user = require('../models/User')
 const Membre = require('../models/Membre');
 const Referent = require('../models/Referent')
 
@@ -20,9 +21,8 @@ exports.listerReferents = async (req, res) => {
 };
 
 // ✅ Liste les membres associés à un référent
-// controllers/referentController.js
 
-// controllers/referentController.js
+
 exports.listerReferentsAvecMembres = async (req, res) => {
   console.log("Route /referents/membres atteinte");
   
@@ -39,17 +39,7 @@ exports.listerReferentsAvecMembres = async (req, res) => {
   }
 };
 
-// exports.getMembresDuReferent = async (req, res) => {
-//   try {
-//     const membres = await Membre.find({ referent: req.params.id });
-//     res.json(membres);
-//   } catch (error) {
-//     res.status(500).json({ message: "Erreur lors de la récupération des membres." });
-//   }
-// };
 
-
-// const Referent = require('../models/Referent');
 
 // Leader laisse un commentaire sur un référent
 exports.ajouterCommentaireLeader = async (req, res) => {
