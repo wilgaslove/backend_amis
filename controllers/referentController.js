@@ -3,8 +3,56 @@ const user = require('../models/User')
 const Membre = require('../models/Membre');
 const Referent = require('../models/Referent')
 
-// ✅ Liste tous les référents
 
+
+
+// Création d'un référent par un leader. 
+exports.creerReferent = async (req, res) => {
+  try {
+    const { nom, prenom, userLogin, motDePasse } = req.body;
+
+    // Vérifier si le login existe déjà
+    const loginExistant = await User.findOne({ userLogin });
+    if (loginExistant) {
+      return res.status(400).json({ message: 'Ce login est déjà utilisé.' });
+    }
+
+    // Hasher le mot de passe
+    const hashedPassword = await bcrypt.hash(motDePasse, 10);
+
+    // Créer le user
+    const nouveauUser = new User({
+      nom,
+      prenom,
+      userLogin,
+      motDePasse: hashedPassword,
+      role: 'referent'
+    });
+
+    await nouveauUser.save();
+
+    // Créer le référent lié
+    const nouveauReferent = new Referent({
+      user: nouveauUser._id,
+      commentaireLeader: '',
+      commentaireAdmin: '',
+      membres: []
+    });
+
+    await nouveauReferent.save();
+
+    res.status(201).json({
+      message: 'Référent créé avec succès.',
+      referent: nouveauReferent
+    });
+  } catch (error) {
+    console.error('❌ Erreur création référent :', error);
+    res.status(500).json({ message: 'Erreur serveur.', error });
+  }
+};
+
+
+// ✅ Liste tous les référents
 exports.listerReferents = async (req, res) => {
   try {
     console.log("📥 Route /api/referents appelée !");
@@ -21,8 +69,6 @@ exports.listerReferents = async (req, res) => {
 };
 
 // ✅ Liste les membres associés à un référent
-
-
 exports.listerReferentsAvecMembres = async (req, res) => {
   console.log("Route /referents/membres atteinte");
   
@@ -76,5 +122,6 @@ exports.ajouterCommentaireAdmin = async (req, res) => {
     res.status(500).json({ message: 'Erreur ajout commentaire admin', error });
   }
 };
+
 
 
