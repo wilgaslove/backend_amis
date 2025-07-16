@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('../middlewares/checkRole');
 const checkRole = require('../middlewares/checkRole');
-
+const authMiddleware = require('../middlewares/checkRole');
 const {
   listerReferents,
   getMembresDuReferent,
   ajouterCommentaireLeader,
   listerReferentsAvecMembres,
-  ajouterCommentaireAdmin
+  ajouterCommentaireAdmin,
+  creerReferent
 } = require('../controllers/referentController');
 
 const {
@@ -39,5 +39,7 @@ router.get('/leaders/:id/membres', authMiddleware, checkRole(['admin']), getMemb
 // Admin commente un référent
 // router.post('/referents/:referentId/commentaire-admin', authMiddleware, checkRole(['admin']), ajouterCommentaireAdmin);
 
+// Leader crée un référent
+router.post('/referents/creer', authMiddleware, checkRole(['leader']), creerReferent);
 
 module.exports = router;

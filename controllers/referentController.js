@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+// const bcrypt = require('bcrypt')
 const user = require('../models/User')
 const Membre = require('../models/Membre');
 const Referent = require('../models/Referent')
