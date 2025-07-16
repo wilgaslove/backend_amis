@@ -18,16 +18,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ✅ Obtenir les membres d’un référent
 
-// router.get('/:id/membres', async (req, res) => {
-//   try {
-//     const membres = await Membre.find({ referentId: req.params.id });
-//     res.json(membres);
-//   } catch (err) {
-//     res.status(500).json({ message: 'Erreur chargement membres du référent' });
-//   }
-// });
 
 // ✅ Tous les membres d’un référent donné
 router.get('/:referentId/membres', async (req, res) => {

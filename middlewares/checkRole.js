@@ -1,12 +1,12 @@
 // middlewares/checkRole.js
-module.exports = function checkRole(roles = []) {
-  return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return res.status(403).json({ message: "Accès interdit." });
-    }
-    next();
-  };
-};
+// module.exports = function checkRole(roles = []) {
+//   return (req, res, next) => {
+//     if (!roles.includes(req.user.role)) {
+//       return res.status(403).json({ message: "Accès interdit." });
+//     }
+//     next();
+//   };
+// };
 
 // // middlewares/checkRole.js
 // module.exports = function checkRole(roles = []) {
@@ -24,3 +24,13 @@ module.exports = function checkRole(roles = []) {
 //     next();
 //   };
 // };
+
+module.exports = (roles) => {
+  return (req, res, next) => {
+    console.log("🔍 Utilisateur connecté :", req.user);
+    if (!req.user || !roles.includes(req.user.role)) {
+      return res.status(403).json({ message: 'Accès interdit : rôle insuffisant' });
+    }
+    next();
+  };
+};

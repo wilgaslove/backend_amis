@@ -40,8 +40,8 @@ router.get('/leaders/:id/membres', authMiddleware, checkRole(['admin']), getMemb
 // router.post('/referents/:referentId/commentaire-admin', authMiddleware, checkRole(['admin']), ajouterCommentaireAdmin);
 
 // Leader crée un référent
-// router.post('/referents/creer', authMiddleware, checkRole(['leader']), creerReferent);
-router.post('/referents/creer', creerReferent);
+router.post('/referents/creer', authMiddleware, checkRole(['leader']), creerReferent);
+// router.post('/referents/creer', creerReferent);
 
 
 module.exports = router;
