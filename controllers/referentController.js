@@ -1,13 +1,14 @@
 // const bcrypt = require('bcrypt')
-const user = require('../models/User')
+const User = require('../models/User');
 const Membre = require('../models/Membre');
-const Referent = require('../models/Referent')
+const Referent = require('../models/Referent');
 
 
 
 
 // Création d'un référent par un leader. 
 exports.creerReferent = async (req, res) => {
+  console.log("📥 Route POST /api/referents/creer appelée");
   try {
     const { nom, prenom, userLogin, motDePasse } = req.body;
 
