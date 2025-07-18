@@ -96,6 +96,21 @@ exports.listerReferentsAvecMembres = async (req, res) => {
 };
 
 
+// exports.getMembresDuReferent = async (req, res) => {
+//   try {
+//     const referentId = req.params.id;
+
+//     // Récupère les membres ayant ce référent
+//     const membres = await User.find({ referent: referentId });
+
+//     res.status(200).json(membres);
+//   } catch (error) {
+//     console.error("Erreur récupération membres :", error);
+//     res.status(500).json({ message: "Erreur lors de la récupération des membres." });
+//   }
+// };
+
+
 
 // Leader laisse un commentaire sur un référent
 exports.ajouterCommentaireLeader = async (req, res) => {

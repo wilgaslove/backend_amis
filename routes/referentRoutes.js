@@ -27,6 +27,9 @@ router.get('/', async (req, res) => {
 
 
 // ✅ Tous les membres d’un référent donné
+
+// router.get('/:id/membres', getMembreDuReferent);
+
 router.get('/:referentId/membres', async (req, res) => {
   try {
     const referent = await Referent.findById(req.params.referentId).populate('membres');
@@ -37,6 +40,8 @@ router.get('/:referentId/membres', async (req, res) => {
     res.status(500).json({ message: 'Erreur chargement membres du référent' });
   }
 });
+
+
 
 // Referent.find().then(data => console.log(data)).catch(err => console.error(err));
 module.exports = router;
