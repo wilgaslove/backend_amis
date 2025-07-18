@@ -55,18 +55,26 @@ exports.creerReferent = async (req, res) => {
 
 
 // ✅ Liste tous les référents
-exports.listerReferents = async (req, res) => {
-  try {
-    console.log("📥 Route /api/referents appelée !");
+// exports.listerReferents = async (req, res) => {
+//   try {
+//     console.log("📥 Route /api/referents appelée !");
     
-    const referents = await User.find({ role: 'referent' }).select('-password');
+//     const referents = await User.find({ role: 'referent' }).select('-password');
 
-    console.log("✅ Référents récupérés :", referents.length);
+//     console.log("✅ Référents récupérés :", referents.length);
 
+//     res.status(200).json(referents);
+//   } catch (error) {
+//     console.error("❌ Erreur dans listerReferents:", error);
+//     res.status(500).json({ message: 'Erreur lors de la récupération des référents', error });
+//   }
+// };
+exports.getAllReferents = async (req, res) => {
+  try {
+    const referents = await Referent.find(); // tu peux filtrer par leader si besoin
     res.status(200).json(referents);
   } catch (error) {
-    console.error("❌ Erreur dans listerReferents:", error);
-    res.status(500).json({ message: 'Erreur lors de la récupération des référents', error });
+    res.status(500).json({ message: "Erreur lors de la récupération des référents" });
   }
 };
 

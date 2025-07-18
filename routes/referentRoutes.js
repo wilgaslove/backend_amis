@@ -1,9 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
-const Membre = require('../models/Membre');
+// const User = require('../models/User');
+// const Membre = require('../models/Membre');
+const { getAllReferents } = require('../controllers/referentController');
+const authMiddleware = require('../middlewares/authMiddleware');
 const Referent = require('../models/Referent')
 
+
+
+// route pour récupérer tous les referents. 
+router.get('/referents', authMiddleware, getAllReferents);
 
 // ✅ Tous les référents avec leurs User et leurs membres
 router.get('/', async (req, res) => {
