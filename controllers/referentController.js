@@ -1,3 +1,4 @@
+
 const bcrypt = require('bcrypt')
 const User = require('../models/User');
 const Membre = require('../models/Membre');
@@ -79,19 +80,34 @@ exports.getAllReferents = async (req, res) => {
 };
 
 // ✅ Liste les membres associés à un référent
-exports.listerReferentsAvecMembres = async (req, res) => {
-  console.log("Route /referents/membres atteinte");
+
+
+// exports.listerReferentsAvecMembres = async (req, res) => {
+//   console.log("Route /referents/membres atteinte");
   
+//   try {
+//     const referents = await Referent.find()
+//       .populate('user', 'nom')
+//       .populate('membres', 'fistName lastName');
+      
+//     console.log("Référents récupérés :", referents);
+//     res.status(200).json(referents);
+//   } catch (error) {
+//     console.error("Erreur dans listerReferentsAvecMembres :", error);
+//     res.status(500).json({ message: 'Erreur lors de la récupération des référents et de leurs membres', error });
+//   }
+// };
+
+
+exports.getMembreDuReferent = async (req, res) => {
   try {
     const referents = await Referent.find()
-      .populate('user', 'nom')
-      .populate('membres', 'fistName lastName');
-      
-    console.log("Référents récupérés :", referents);
-    res.status(200).json(referents);
+      .populate('user', 'nom prenom userLogin role')
+      .populate('membres');
+    res.json(referents);
   } catch (error) {
-    console.error("Erreur dans listerReferentsAvecMembres :", error);
-    res.status(500).json({ message: 'Erreur lors de la récupération des référents et de leurs membres', error });
+    console.error(error);
+    res.status(500).json({ message: 'Erreur lors de la récupération des référents' });
   }
 };
 
