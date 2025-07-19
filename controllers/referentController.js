@@ -165,4 +165,26 @@ exports.ajouterCommentaireAdmin = async (req, res) => {
 };
 
 
+exports.getReferentsAvecMembres = async (req, res) => {
+  try {
+    const referents = await Referent.find().populate('user', 'nom prenom userLogin');
 
+    const referentsAvecMembres = await Promise.all(
+      referents.map(async (referent) => {
+        const membres = await Membre.find({ referentId: referent._id });
+        return {
+          _id: referent._id,
+          user: referent.user,
+          commentaireLeader: referent.commentaireLeader,
+          commentaireAdmin: referent.commentaireAdmin,
+          membres
+        };
+      })
+    );
+
+    res.status(200).json(referentsAvecMembres);
+  } catch (error) {
+    console.error("❌ Erreur lors de la récupération des référents avec membres :", error);
+    res.status(500).json({ message: 'Erreur serveur', error });
+  }
+};

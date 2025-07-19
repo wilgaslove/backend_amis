@@ -49,22 +49,22 @@ router.get('/', async (req, res) => {
 //   }
 // });
 
-router.get('/:referentId/membres', async (req, res) => {
-  try {
-    const referentId = req.params.referentId;
+// router.get('/:referentId/membres', async (req, res) => {
+//   try {
+//     const referentId = req.params.referentId;
 
-    const membres = await Membre.find({ 'suivi.referentId': referentId });
+//     const membres = await Membre.find({ 'suivi.referentId': referentId });
 
-    if (!membres || membres.length === 0) {
-      return res.status(404).json({ message: 'Aucun membre trouvé pour ce référent' });
-    }
+//     if (!membres || membres.length === 0) {
+//       return res.status(404).json({ message: 'Aucun membre trouvé pour ce référent' });
+//     }
 
-    res.json(membres);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Erreur chargement membres du référent' });
-  }
-});
+//     res.json(membres);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: 'Erreur chargement membres du référent' });
+//   }
+// });
 
 
 
