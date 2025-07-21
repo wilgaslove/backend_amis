@@ -10,6 +10,10 @@ exports.ajouterMembre = async (req, res) => {
       req.body.referentId = user._id;
     }
 
+    // if (user.role === 'referent') {
+    //  req.body.userLogin = user.userLogin;
+    // }
+
     const nouveauMembre = new Membre(req.body);
     await nouveauMembre.save();
 

@@ -5,6 +5,14 @@ const Membre = require('../models/Membre');
 const Referent = require('../models/Referent');
 
 
+exports.listerMembres = async (req, res) => {
+  try {
+    const membres = await Membre.find();
+    res.json(membres);
+  } catch (err) {
+    res.status(500).json({ message: "Erreur", error: err });
+  }
+};
 
 
 // Création d'un référent par un leader. 
@@ -56,20 +64,7 @@ exports.creerReferent = async (req, res) => {
 
 
 // ✅ Liste tous les référents
-// exports.listerReferents = async (req, res) => {
-//   try {
-//     console.log("📥 Route /api/referents appelée !");
-    
-//     const referents = await User.find({ role: 'referent' }).select('-password');
 
-//     console.log("✅ Référents récupérés :", referents.length);
-
-//     res.status(200).json(referents);
-//   } catch (error) {
-//     console.error("❌ Erreur dans listerReferents:", error);
-//     res.status(500).json({ message: 'Erreur lors de la récupération des référents', error });
-//   }
-// };
 exports.getAllReferents = async (req, res) => {
   try {
     const referents = await Referent.find(); // tu peux filtrer par leader si besoin
@@ -80,23 +75,6 @@ exports.getAllReferents = async (req, res) => {
 };
 
 // ✅ Liste les membres associés à un référent
-
-
-// exports.listerReferentsAvecMembres = async (req, res) => {
-//   console.log("Route /referents/membres atteinte");
-  
-//   try {
-//     const referents = await Referent.find()
-//       .populate('user', 'nom')
-//       .populate('membres', 'fistName lastName');
-      
-//     console.log("Référents récupérés :", referents);
-//     res.status(200).json(referents);
-//   } catch (error) {
-//     console.error("Erreur dans listerReferentsAvecMembres :", error);
-//     res.status(500).json({ message: 'Erreur lors de la récupération des référents et de leurs membres', error });
-//   }
-// };
 
 
 exports.getMembreDuReferent = async (req, res) => {
@@ -163,32 +141,6 @@ exports.ajouterCommentaireAdmin = async (req, res) => {
     res.status(500).json({ message: 'Erreur ajout commentaire admin', error });
   }
 };
-
-
-// exports.getReferentsAvecMembres = async (req, res) => {
-//   try {
-//     const referents = await Referent.find().populate('user', 'nom prenom userLogin');
-
-//     const referentsAvecMembres = await Promise.all(
-//       referents.map(async (referent) => {
-//         const membres = await Membre.find({ referentId: referent._id });
-//         return {
-//           _id: referent._id,
-//           user: referent.user,
-//           commentaireLeader: referent.commentaireLeader,
-//           commentaireAdmin: referent.commentaireAdmin,
-//           membres
-//         };
-//       })
-//     );
-
-//     res.status(200).json(referentsAvecMembres);
-//   } catch (error) {
-//     console.error("❌ Erreur lors de la récupération des référents avec membres :", error);
-//     res.status(500).json({ message: 'Erreur serveur', error });
-//   }
-// };
-
 
 
 exports.getReferentsAvecMembres = async (req, res) => {

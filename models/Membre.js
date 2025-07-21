@@ -24,7 +24,11 @@ const membreSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Referent',  //User
     required: true
-   }
+   },
+  // createdBy: {  // Champ pour stocker le userLogin
+  //   type: String,
+  //   required: true
+  // }
 });
 
 module.exports = mongoose.model("Membre", membreSchema);
