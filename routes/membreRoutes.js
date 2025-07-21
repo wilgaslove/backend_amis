@@ -7,6 +7,7 @@ const {
   modifierMembre,
   supprimerMembre,
   compterMembresParReferent, 
+  getMembresParReferent
 
 } = require("../controllers/membreController");
 
@@ -33,6 +34,9 @@ router.delete('/membres/:id', authMiddleware, checkRole(['referent', 'admin', 'l
 
 // ✅ Compter les membres du référent connecté
 router.get('/mes-membres/count', authMiddleware, checkRole(['referent']), compterMembresParReferent);
+
+router.get('/membres/referent/:referentId', getMembresParReferent);
+
 module.exports = router;
 
 

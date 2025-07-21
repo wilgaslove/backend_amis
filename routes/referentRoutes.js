@@ -5,6 +5,8 @@ const authMiddleware = require('../middlewares/authMiddleware');
 const Referent = require('../models/Referent');
 const User = require('../models/User');
 const Membre = require('../models/Membre');
+const { listerMembres } = require('../controllers/membreController');
+const checkRole = require('../middlewares/checkRole');
 
 
 
@@ -69,9 +71,26 @@ router.get('/avec-membres', async (req, res) => {
   }
 });
 
+// Récupérer les membres d'un référent spécifique
+// router.get('/:id/membres', async (req, res) => {
+//   try {
+//     const referentId = req.params.id;
+
+//     const referent = await User.findById(referentId);
+//     if (!referent || referent.role !== 'referent') {
+//       return res.status(404).json({ message: 'Référent non trouvé' });
+//     }
+
+//     const membres = await User.find({ referent: referentId });
+//     res.json(membres);
+//   } catch (error) {
+//     console.error("Erreur lors de la récupération des membres du référent :", error);
+//     res.status(500).json({ message: "Erreur serveur" });
+//   }
+// });
 
 // Récupérer tous les référents avec les membres liés
-// Route : récupérer les référents avec leurs membres liés
+
 router.get('/referents-avec-membres', async (req, res) => {
   try {
     const referents = await Referent.find().populate('user');
@@ -93,6 +112,11 @@ router.get('/referents-avec-membres', async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur', error });
   }
 });
+
+// Lister tous les membres (admin, leader uniquement)
+router.get('/membres', authMiddleware, checkRole(['admin', 'leader']), listerMembres);
+
+
 module.exports = router;
 
 
