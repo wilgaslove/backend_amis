@@ -126,12 +126,3 @@ exports.supprimerMembre = async (req, res) => {
 };
 
 
-exports.getMembresParReferent = async (req, res) => {
-  try {
-    const { referentId } = req.params;
-    const membres = await Membre.find({ referentId });
-    res.status(200).json(membres);
-  } catch (error) {
-    res.status(500).json({ message: "Erreur lors de la récupération des membres", error });
-  }
-};
