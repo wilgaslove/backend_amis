@@ -117,6 +117,21 @@ router.get('/referents-avec-membres', async (req, res) => {
 router.get('/membres', authMiddleware, checkRole(['admin', 'leader']), listerMembres);
 
 
+// Obtenir les membres liés à un référent
+router.get('/referents/:id/membres', async (req, res) => {
+  try {
+    const referentId = req.params.id;
+
+    // Cherche les membres dont le champ referentId est égal à l'ID donné
+    const membres = await Membre.find({ referentId });
+
+    res.json(membres);
+  } catch (err) {
+    console.error('Erreur serveur:', err);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
 module.exports = router;
 
 

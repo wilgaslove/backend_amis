@@ -25,10 +25,7 @@ const membreSchema = new mongoose.Schema({
     ref: 'Referent',  //User
     required: true
    },
-  // createdBy: {  // Champ pour stocker le userLogin
-  //   type: String,
-  //   required: true
-  // }
+  
 });
 
 module.exports = mongoose.model("Membre", membreSchema);
