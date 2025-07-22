@@ -50,6 +50,9 @@ app.use('/api', membreRoutes);
 // api/userRoutes
  app.use('/api', require('./routes/userRoutes'));
 
+ //récupéré les membres 
+ app.use('/api/membres', require('./routes/membreRoutes'));
+
 // //api récupération des référents
 app.use('/api/referents', require('./routes/referentRoutes'));
 
