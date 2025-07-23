@@ -56,7 +56,8 @@ app.use('/api', membreRoutes);
 // //api récupération des référents
 app.use('/api/referents', require('./routes/referentRoutes'));
 
-
+// Utiliser les routes
+app.use('/api', referentRoutes);
 
 
 // Lancement du serveur

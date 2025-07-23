@@ -107,6 +107,7 @@ exports.getMembreDuReferent = async (req, res) => {
 
 
 // Leader laisse un commentaire sur un référent
+
 exports.ajouterCommentaireLeader = async (req, res) => {
   try {
     const { referentId } = req.params;
@@ -157,3 +158,21 @@ exports.getReferentsAvecMembres = async (req, res) => {
 };
 
 
+exports.getReferentsWithMembres = async (req, res) => {
+  try {
+    const referents = await User.find({ role: 'referent' });
+
+    const referentsAvecMembres = await Promise.all(referents.map(async (referent) => {
+      const membres = await Membre.find({ referentId: referent._id });
+      return {
+        referent,
+        membres
+      };
+    }));
+
+    res.json(referentsAvecMembres);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des référents et membres:', error);
+    res.status(500).json({ message: 'Erreur lors de la récupération des référents et membres' });
+  }
+};
