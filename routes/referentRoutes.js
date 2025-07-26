@@ -11,26 +11,58 @@ const referentController = require('../controllers/referentController');
 
 
 // route pour récupérer tous les referents. 
-// router.get('/referents', authMiddleware, getAllReferents);
-
-
-
-// ✅ Tous les référents avec leurs User et leurs membres
-router.get('/', async (req, res) => {
-  try {
-    const referents = await Referent.find()
-      .populate('user', 'nom prenom userLogin role')   // Données utilisateur
-      .populate('membres');                            // Membres liés
-    res.json(referents);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Erreur chargement des référents' });
-  }
-});
+//  router.get('/referents', authMiddleware, getAllReferents);
 
 
 // 🔐 Toutes les routes ici nécessitent d'être authentifié
 router.use(authMiddleware);
+
+
+
+// ✅ Tous les référents avec leurs User et leurs membres
+// router.get('/', async (req, res) => {
+//   try {
+//     const referents = await Referent.find()
+//       .populate('user', 'nom prenom userLogin role')   // Données utilisateur
+//       .populate('membres');                            // Membres liés
+//     res.json(referents);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: 'Erreur chargement des référents' });
+//   }
+// });
+
+// router.get('/referents', async (req, res) => {
+//   try {
+//     const referents = await Referent.find().populate({
+//       path: 'user', // Pour peupler les données utilisateur
+//     });
+
+//     // Pour chaque référent, on récupère les membres associés
+//     for (const referent of referents) {
+//       referent.membres = await Membre.find({ referentId: referent._id }); // Récupérer les membres liés à ce référent
+//     }
+
+//     res.json(referents);
+//   } catch (error) {
+//     res.status(500).json({ message: 'Erreur lors de la récupération des référents', error });
+//   }
+// });
+
+router.get('/referents', async (req, res) => {
+  try {
+    const referents = await Referent.find().populate('user'); // Peupler les données utilisateur
+
+    // Pour chaque référent, récupérer les membres associés
+    for (const referent of referents) {
+      referent.membres = await Membre.find({ referentId: referent._id }); // Récupérer les membres liés à ce référent
+    }
+
+    res.json(referents);
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur lors de la récupération des référents', error });
+  }
+});
 
 // 🧑‍🤝‍🧑 Route : GET /api/referents
 // Récupérer tous les référents
