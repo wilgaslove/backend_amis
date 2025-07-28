@@ -9,12 +9,6 @@ const referentSchema = new Schema({
     ref: 'User',
     required: true
   },
-  membres: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Membre'
-    }
-  ]
 }, { timestamps: true });
 
 // const referentSchema = new Schema(
@@ -34,7 +28,7 @@ const referentSchema = new Schema({
 //   }
 // );
 
-// // 🔁 Relation virtuelle vers les membres liés
+// // // 🔁 Relation virtuelle vers les membres liés
 // referentSchema.virtual("membres", {
 //   ref: "Membre",
 //   localField: "_id",
@@ -42,3 +36,15 @@ const referentSchema = new Schema({
 // });
 
 module.exports = mongoose.model("Referent", referentSchema);
+
+
+// ma table users avec le role referent
+// _id: objectId(68849b3e3ef74017cc545789)
+// userLogin: "Gaston.ADJOVI"
+// nom: "Gaston"
+// prenom: "ADJOVI"
+// motDePasse: "$2b$10$0LNRrQx5NjIcUzQu0Uf.ueoeINExKdLYZAhhhzXG0F.77xEbbnFNm"
+// role: "referent"
+// __v: 0
+
+

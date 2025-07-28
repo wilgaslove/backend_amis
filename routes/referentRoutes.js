@@ -49,20 +49,23 @@ router.use(authMiddleware);
 //   }
 // });
 
-router.get('/referents', async (req, res) => {
-  try {
-    const referents = await Referent.find().populate('user'); // Peupler les données utilisateur
+// router.get('/referents', async (req, res) => {
+//   try {
+//     const referents = await Referent.find().populate('user'); // Peupler les données utilisateur
 
-    // Pour chaque référent, récupérer les membres associés
-    for (const referent of referents) {
-      referent.membres = await Membre.find({ referentId: referent._id }); // Récupérer les membres liés à ce référent
-    }
+//     // Pour chaque référent, récupérer les membres associés
+//     for (const referent of referents) {
+//       referent.membres = await Membre.find({ referentId: referent._id }); // Récupérer les membres liés à ce référent
+//     }
 
-    res.json(referents);
-  } catch (error) {
-    res.status(500).json({ message: 'Erreur lors de la récupération des référents', error });
-  }
-});
+//     res.json(referents);
+//   } catch (error) {
+//     res.status(500).json({ message: 'Erreur lors de la récupération des référents', error });
+//   }
+// });
+
+// Route pour récupérer tous les référents avec leurs membres
+router.get('/referents', authMiddleware, checkRole(['leader']), getReferentsAvecMembres);
 
 // 🧑‍🤝‍🧑 Route : GET /api/referents
 // Récupérer tous les référents

@@ -1,28 +1,26 @@
 
 const Membre = require("../models/Membre");
 
-exports.ajouterMembre = async (req, res) => {
-  try {
-    const user = req.user;
+// exports.ajouterMembre = async (req, res) => {
+//   try {
+//     const user = req.user;
 
-    // ⚠️ Si l'utilisateur est un référent, on ajoute son ID comme `referentId`
-    if (user.role === 'referent') {
-      req.body.referentId = user._id;
-    }
+//     // ⚠️ Si l'utilisateur est un référent, on ajoute son ID comme `referentId`
+//     if (user.role === 'referent') {
+//       req.body.referentId = user._id;
+//     }
 
-    // if (user.role === 'referent') {
-    //  req.body.userLogin = user.userLogin;
-    // }
+   
 
-    const nouveauMembre = new Membre(req.body);
-    await nouveauMembre.save();
+//     const nouveauMembre = new Membre(req.body);
+//     await nouveauMembre.save();
 
-    res.status(201).json(nouveauMembre);
-  } catch (err) {
-    console.error("❌ Erreur ajout membre :", err);
-    res.status(500).json({ message: "Erreur lors de l'ajout du membre", error: err });
-  }
-};
+//     res.status(201).json(nouveauMembre);
+//   } catch (err) {
+//     console.error("❌ Erreur ajout membre :", err);
+//     res.status(500).json({ message: "Erreur lors de l'ajout du membre", error: err });
+//   }
+// };
 
 
 // exports.ajouterMembre = async (req, res) => {
@@ -43,6 +41,41 @@ exports.ajouterMembre = async (req, res) => {
 //     res.status(500).json({ message: "Erreur lors de l'ajout du membre", error: err });
 //   }
 // };
+
+exports.ajouterMembre = async (req, res) => {
+  try {
+    const user = req.user;
+
+    // Ajouter l'ID du référent dans le corps de la requête si l'utilisateur est un référent
+    if (user.role === 'referent') {
+      req.body.referentId = user._id;
+    }
+
+    // Créer un nouveau membre
+    const nouveauMembre = new Membre(req.body);
+    await nouveauMembre.save();
+
+    // Ajouter le membre à la liste des membres du référent
+    await Referent.findByIdAndUpdate(
+      req.body.referentId,
+      { $push: { membres: nouveauMembre._id } }, // Ajouter l'ID du nouveau membre
+      { new: true } // Optionnel : retourner le document mis à jour
+    );
+
+    // Répondre avec les informations du membre créé
+    res.status(201).json({
+      message: 'Membre créé avec succès',
+      membre: {
+        id: nouveauMembre._id,
+        firstName: nouveauMembre.firstName,
+        lastName: nouveauMembre.lastName
+      }
+    });
+  } catch (err) {
+    console.error("❌ Erreur ajout membre :", err);
+    res.status(500).json({ message: "Erreur lors de l'ajout du membre", error: err });
+  }
+};
 
 exports.listerMembres = async (req, res) => {
   try {
