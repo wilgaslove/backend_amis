@@ -16,17 +16,6 @@ const {
   getMembresDuLeader
 } = require('../controllers/leaderController');
 
-// ✅ Liste des référents
-  //  router.get('/referents', authMiddleware, checkRole(['admin', 'leader']), listerReferents);
-
-// ✅ Membres d’un référent
-  // router.get('/referents/:id/membres', authMiddleware, checkRole(['admin', 'leader']), getMembresDuReferent);
-
- // routes/userRoutes.js
-
-// router.get('/referents/membres', authMiddleware, checkRole(['admin', 'leader']), listerReferentsAvecMembres);
-
-
 // ✅ Liste des leaders
 router.get('/leaders', authMiddleware, checkRole(['admin']), listerLeaders);
 

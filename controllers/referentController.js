@@ -87,23 +87,23 @@ exports.getAllReferents = async (req, res) => {
 //   }
 // };
 
-exports.getReferentsAvecMembres = async (req, res) => {
-  try {
-    // Récupérer tous les référents
-    const referents = await Referent.find().populate('user', 'nom prenom userLogin');
+// exports.getReferentsAvecMembres = async (req, res) => {
+//   try {
+//     // Récupérer tous les référents
+//     const referents = await Referent.find().populate('user', 'nom prenom userLogin');
 
-    // Récupérer les membres associés à chaque référent
-    const referentsAvecMembres = await Promise.all(referents.map(async (referent) => {
-      const membres = await Membre.find({ referentId: referent._id });
-      return { ...referent.toObject(), membres };
-    }));
+//     // Récupérer les membres associés à chaque référent
+//     const referentsAvecMembres = await Promise.all(referents.map(async (referent) => {
+//       const membres = await Membre.find({ referentId: referent._id });
+//       return { ...referent.toObject(), membres };
+//     }));
 
-    res.status(200).json(referentsAvecMembres);
-  } catch (err) {
-    console.error("❌ Erreur récupération des référents :", err);
-    res.status(500).json({ message: "Erreur lors de la récupération des référents", error: err });
-  }
-};
+//     res.status(200).json(referentsAvecMembres);
+//   } catch (err) {
+//     console.error("❌ Erreur récupération des référents :", err);
+//     res.status(500).json({ message: "Erreur lors de la récupération des référents", error: err });
+//   }
+// };
 
 // exports.getMembresDuReferent = async (req, res) => {
 //   try {

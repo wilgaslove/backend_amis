@@ -38,13 +38,3 @@ const referentSchema = new Schema({
 module.exports = mongoose.model("Referent", referentSchema);
 
 
-// ma table users avec le role referent
-// _id: objectId(68849b3e3ef74017cc545789)
-// userLogin: "Gaston.ADJOVI"
-// nom: "Gaston"
-// prenom: "ADJOVI"
-// motDePasse: "$2b$10$0LNRrQx5NjIcUzQu0Uf.ueoeINExKdLYZAhhhzXG0F.77xEbbnFNm"
-// role: "referent"
-// __v: 0
-
-

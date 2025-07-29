@@ -81,6 +81,7 @@ exports.listerMembres = async (req, res) => {
   try {
     const membres = await Membre.find();
     res.json(membres);
+  
   } catch (err) {
     res.status(500).json({ message: "Erreur", error: err });
   }

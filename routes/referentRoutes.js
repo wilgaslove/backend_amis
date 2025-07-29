@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAllReferents, getReferentsAvecMembres  } = require('../controllers/referentController');
+//  const { getAllReferents, getReferentsAvecMembres  } = require('../controllers/referentController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const Referent = require('../models/Referent');
 const User = require('../models/User');
@@ -65,7 +65,7 @@ router.use(authMiddleware);
 // });
 
 // Route pour récupérer tous les référents avec leurs membres
-router.get('/referents', authMiddleware, checkRole(['leader']), getReferentsAvecMembres);
+// router.get('/referents', authMiddleware, checkRole(['leader']), getReferentsAvecMembres);
 
 // 🧑‍🤝‍🧑 Route : GET /api/referents
 // Récupérer tous les référents
