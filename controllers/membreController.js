@@ -1,7 +1,7 @@
 
 const Membre = require("../models/Membre");
 
-
+// Créer un nouveau membre
 exports.ajouterMembre = async (req, res) => {
   try {
     const user = req.user;
@@ -37,6 +37,7 @@ exports.ajouterMembre = async (req, res) => {
   }
 };
 
+// Lister tous les membres
 exports.listerMembres = async (req, res) => {
   try {
     const membres = await Membre.find();
@@ -48,7 +49,7 @@ exports.listerMembres = async (req, res) => {
 };
 
 
-
+// Lister les membres du référent connecté
 exports.membresParReferent = async (req, res) => {
   try {
     const referentId = req.user.id;
@@ -71,7 +72,7 @@ exports.compterMembresParReferent = async (req, res) => {
   }
 };
 
-
+// Modifier un membre
 exports.modifierMembre = async (req, res) => {
   try {
     const membreId = req.params.id;
@@ -95,7 +96,7 @@ exports.modifierMembre = async (req, res) => {
   }
 };
 
-
+// Supprimer un membre
 exports.supprimerMembre = async (req, res) => {
   try {
     const membreId = req.params.id;
