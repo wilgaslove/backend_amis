@@ -61,7 +61,7 @@ exports.membresParReferent = async (req, res) => {
   }
 };
 
-// 🧮 Compter les membres du référent connecté
+// Compter les membres du référent connecté
 exports.compterMembresParReferent = async (req, res) => {
   try {
     const referentId = req.user.id; // ID du référent connecté (grâce au middleware auth)
