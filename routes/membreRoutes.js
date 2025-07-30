@@ -13,7 +13,7 @@ const {
 const authMiddleware = require('../middlewares/authMiddleware'); // ✅ Garder une seule fois
 const checkRole = require('../middlewares/checkRole');
 
-// // ✅ Ta nouvelle route ici
+
 
 // Ajouter un membre (référent uniquement)
 router.post('/membres', authMiddleware, checkRole(['referent']), ajouterMembre);
@@ -32,9 +32,6 @@ router.delete('/membres/:id', authMiddleware, checkRole(['referent', 'admin', 'l
 
 // ✅ Compter les membres du référent connecté
 router.get('/mes-membres/count', authMiddleware, checkRole(['referent']), compterMembresParReferent);
-
-// example
-// router.get('/referents', authMiddleware, membreController.getReferents);
 
 module.exports = router;
 
