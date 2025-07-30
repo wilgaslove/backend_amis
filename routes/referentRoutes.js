@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-//  const { getAllReferents, getReferentsAvecMembres  } = require('../controllers/referentController');
+// const { getAllReferents, getReferentsAvecMembres  } = require('../controllers/referentController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const Referent = require('../models/Referent');
 const User = require('../models/User');
 const Membre = require('../models/Membre');
-const { listerMembres,  } = require('../controllers/membreController');
+const membreController = require('../controllers/membreController');
 const checkRole = require('../middlewares/checkRole');
 const referentController = require('../controllers/referentController');
 
@@ -17,6 +17,7 @@ const referentController = require('../controllers/referentController');
 // 🔐 Toutes les routes ici nécessitent d'être authentifié
 router.use(authMiddleware);
 
+router.get('/referents-membres', referentController.referentsEtLeursMembres);
 
 
 // ✅ Tous les référents avec leurs User et leurs membres

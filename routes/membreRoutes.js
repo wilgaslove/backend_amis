@@ -33,6 +33,8 @@ router.delete('/membres/:id', authMiddleware, checkRole(['referent', 'admin', 'l
 // ✅ Compter les membres du référent connecté
 router.get('/mes-membres/count', authMiddleware, checkRole(['referent']), compterMembresParReferent);
 
+// example
+// router.get('/referents', authMiddleware, membreController.getReferents);
 
 module.exports = router;
 
