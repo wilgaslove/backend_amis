@@ -1,5 +1,6 @@
 
 const Membre = require("../models/Membre");
+const Referent = require("../models/Referent");
 
 // Créer un nouveau membre
 exports.ajouterMembre = async (req, res) => {

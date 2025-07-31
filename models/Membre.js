@@ -11,6 +11,7 @@ const membreSchema = new mongoose.Schema({
   requetePriere: String,
   desireRencontrerPasteur: Boolean,
   rdvPasteur: Date,
+  veuxIntegrer: Boolean,
   visiteMaison: Boolean,
   contactRegulier: Boolean,
   note: String,
