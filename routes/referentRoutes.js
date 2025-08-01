@@ -9,7 +9,8 @@ const referentController = require('../controllers/referentController');
 router.use(authMiddleware);
 
 router.get('/referents-membres', referentController.referentsEtLeursMembres);
-
+router.get('/leaders-commentaires', referentController.ajouterCommentaireLeader);
+router.get('/admin-commentaires', referentController.ajouterCommentaireAdmin);
 module.exports = router;
 
 
