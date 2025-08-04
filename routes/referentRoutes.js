@@ -11,5 +11,6 @@ router.use(authMiddleware);
 router.get('/referents-membres', referentController.referentsEtLeursMembres);
 // ✅ Ajouter un commentaire pour un leader
 router.get('/leaders-commentaires', referentController.ajouterCommentaireLeader);
+// ✅ Ajouter un commentaire pour un admin
 router.get('/admin-commentaires', referentController.ajouterCommentaireAdmin);
 module.exports = router;
