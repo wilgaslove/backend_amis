@@ -15,7 +15,7 @@ const {
 router.get('/leaders', authMiddleware, checkRole(['admin']), listerLeaders);
 
 // ✅ Membres d’un leader
-router.get('/leaders/:id/membres', authMiddleware, checkRole(['admin']), getMembresDuLeader);
+// router.get('/leaders/:id/membres', authMiddleware, checkRole(['admin']), getMembresDuLeader);
 
 
 // Leader crée un référent

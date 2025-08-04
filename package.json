@@ -1,11 +1,6 @@
+
 {
- "name": "backend_adn",
-  "version": "1.0.0",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
-  }, "name": "backend_adn",
+  "name": "backend_adn",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -29,6 +24,7 @@
     "nodemon": "^3.1.10"
   }
 }
+
 
   
 

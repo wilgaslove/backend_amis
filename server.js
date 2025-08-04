@@ -14,21 +14,19 @@ const app = express();
 
 
 
+// app.get('/test-direct', (req, res) => {
+//   console.log("✅ Route /test-direct appelée !");
+//   res.send("Test direct OK");
+// });
 
 // URL du frontend 
 // Autoriser les requêtes venant du frontend Vue.js//Configuration CORS complète
-
 const corsOptions = {
-  origin: [
-    'http://localhost:5173',                  // en local
-    'https://ton-projet.web.app',             // Firebase (exemple)
-    'https://ton-projet.firebaseapp.com'      // Firebase (autre domaine)
-  ],
+  origin: 'http://localhost:5173',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
-
 
 // ✅ Parser JSON
 app.use(cors(corsOptions));
