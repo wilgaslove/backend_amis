@@ -124,3 +124,22 @@ exports.referentsEtLeursMembres = async (req, res) => {
     res.status(500).json({ message: "Erreur serveur", error });
   }
 };
+
+// controllers/referentController.js
+exports.getCommentairesPourReferent = async (req, res) => {
+  try {
+    const { referentId } = req.params;
+    const referent = await Referent.findById(referentId).select('commentaireLeader CommantaireAdmin');
+
+    if (!referent) {
+      return res.status(404).json({ message: "Référent introuvable" });
+    }
+
+    res.json({
+      commentaireLeader: referent.commentaireLeader || '',
+      commentaireAdmin: referent.CommantaireAdmin || '',
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Erreur lors de la récupération des commentaires", error });
+  }
+};
