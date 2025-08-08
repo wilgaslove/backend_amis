@@ -9,7 +9,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['admin', 'leader', 'referent'],
         default: 'referent'
-    }
-});
+    },
+      mustChangePassword: { type: Boolean, default: false }, // <-- nouveau champ
+  // autres champs...
+}, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);
