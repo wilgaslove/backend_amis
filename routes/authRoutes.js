@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { register, login } = require('../controllers/authController');
+const { register, login, changePassword } = require('../controllers/authController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const checkRole = require('../middlewares/checkRole');
 const User = require('../models/User');
-const { ajouterMembre } = require('../controllers/membreController');
-const { listerMembres } = require('../controllers/membreController');
+const { ajouterMembre, listerMembres} = require('../controllers/membreController');
 
 
 router.post('/register', register);
 router.post('/login', login);
+router.post('/change-password', authMiddleware, changePassword);
 router.get('/me', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-motDePasse');
