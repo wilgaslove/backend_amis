@@ -23,7 +23,6 @@ const app = express();
 // Autoriser les requêtes venant du frontend Vue.js//Configuration CORS complète
 const corsOptions = {
   origin: 'http://localhost:5173',
-  // 'https://ton-frontend.firebaseapp.com', 
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
