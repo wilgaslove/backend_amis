@@ -40,7 +40,8 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ Connexion réussie à MongoDB Atlas'))
   .catch(err => console.error('❌ Erreur de connexion :', err));
 
-// Routes
+// Les différentes routes de l'API
+// api/authRoutes
 //api/register, /api/login
 app.use('/api', authRoutes);  
 
