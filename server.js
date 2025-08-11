@@ -31,10 +31,30 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.error('❌ Erreur de connexion :', err));
 
 // Routes
-app.use('/api/auth', authRoutes);      // ex: /api/auth/register
-app.use('/api/membres', membreRoutes); // ex: /api/membres
-app.use('/api/users', userRoutes);     // ex: /api/users
-app.use('/api/referents', referentRoutes); // ex: /api/referents
+// app.use('/api/auth', authRoutes);      // ex: /api/auth/register
+// app.use('/api/membres', membreRoutes); // ex: /api/membres
+// app.use('/api/users', userRoutes);     // ex: /api/users
+// app.use('/api/referents', referentRoutes); // ex: /api/referents
+
+app.use('/api', authRoutes);  
+
+// // /api/membres
+app.use('/api', membreRoutes);   
+
+// api/userRoutes
+ app.use('/api', require('./routes/userRoutes'));
+
+ //récupéré les membres 
+ app.use('/api/membres', require('./routes/membreRoutes'));
+
+// //api récupération des référents
+app.use('/api/referents', require('./routes/referentRoutes'));
+
+// Utiliser les routes
+app.use('/api', referentRoutes);
+
+
+
 
 // Route test
 app.get('/', (req, res) => {
