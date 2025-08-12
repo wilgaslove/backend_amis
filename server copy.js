@@ -35,6 +35,13 @@ app.use(cors(corsOptions));
 // Middleware pour parser le JSON
 app.use(express.json());
 
+// Routes
+// app.use('/api/auth', authRoutes);      // ex: /api/auth/register
+// app.use('/api/membres', membreRoutes); // ex: /api/membres
+// app.use('/api/users', userRoutes);     // ex: /api/users
+// app.use('/api/referents', referentRoutes); // ex: /api/referents
+
+
 // Connexion à MongoDB Atlas (⚠️ sans options dépréciées)
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ Connexion réussie à MongoDB Atlas'))

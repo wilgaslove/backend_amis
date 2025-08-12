@@ -30,11 +30,6 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ Connexion réussie à MongoDB Atlas'))
   .catch(err => console.error('❌ Erreur de connexion :', err));
 
-// Routes
-// app.use('/api/auth', authRoutes);      // ex: /api/auth/register
-// app.use('/api/membres', membreRoutes); // ex: /api/membres
-// app.use('/api/users', userRoutes);     // ex: /api/users
-// app.use('/api/referents', referentRoutes); // ex: /api/referents
 
 app.use('/api', authRoutes);  
 
