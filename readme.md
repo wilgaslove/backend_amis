@@ -86,9 +86,9 @@ Chaque nouveau est assigné à un référent, supervisé par un leader, le tout 
 | Intégration & test     | 3 jours      |
 | Déploiement            | 1 jour       |
 🚀 Déploiement
-- Backend : Render ou Railway
+- Backend : Railway
 - Base MongoDB : MongoDB Atlas
-- Frontend : Vercel, Netlify ou Firebase Hosting
+- Frontend :Firebase Hosting
 📌 Équipe
 - Responsable technique : Wilgas ADJOVI
 - Designer / UX : Wilgas A.

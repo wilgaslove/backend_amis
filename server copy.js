@@ -12,13 +12,6 @@ dotenv.config();
 
 const app = express();
 
-
-
-// app.get('/test-direct', (req, res) => {
-//   console.log("✅ Route /test-direct appelée !");
-//   res.send("Test direct OK");
-// });
-
 // URL du frontend 
 // Autoriser les requêtes venant du frontend Vue.js//Configuration CORS complète
 const corsOptions = {
@@ -36,10 +29,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
-// app.use('/api/auth', authRoutes);      // ex: /api/auth/register
-// app.use('/api/membres', membreRoutes); // ex: /api/membres
-// app.use('/api/users', userRoutes);     // ex: /api/users
-// app.use('/api/referents', referentRoutes); // ex: /api/referents
 
 
 // Connexion à MongoDB Atlas (⚠️ sans options dépréciées)
