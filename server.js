@@ -7,6 +7,7 @@ const membreRoutes = require('./routes/membreRoutes');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const referentRoutes = require('./routes/referentRoutes');
+const commentRoutes = require('./routes/commentaireRoutes');
 
 dotenv.config();
 const app = express();
@@ -49,12 +50,8 @@ app.use('/api/referents', require('./routes/referentRoutes'));
 app.use('/api', referentRoutes);
 
 
-
-
-// Route test
-app.get('/', (req, res) => {
-  res.send('🚀 Backend Railway fonctionne parfaitement !');
-});
+// Routes pour les commentaires
+app.use('/api/commentaires', require('./routes/commentaireRoutes'));
 
 // Lancement serveur
 const PORT = process.env.PORT || 3000;
