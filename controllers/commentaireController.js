@@ -3,11 +3,11 @@ const Commentaire = require('../models/Commentaire');
 // ➕ Ajouter un commentaire
 exports.addComment = async (req, res) => {
   try {
-    const comment = await Commentaire.create({
+    const commentaire = await Commentaire.create({
       user: req.user._id,
       message: req.body.message
     });
-    const populatedComment = await Commentaire.populate("user", "nom prenom userLogin");
+    const populatedComment = await commentaire.populate("user",  " _id nom prenom userLogin");
     res.json(populatedComment);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -32,15 +32,15 @@ exports.updateComment = async (req, res) => {
     const comment = await Commentaire.findById(req.params.id);
     if (!comment) return res.status(404).json({ error: "Commentaire introuvable" });
 
-    if (Commentaire.user.toString() !== req.user._id.toString()) {
+    if (comment.user.toString() !== req.user._id.toString()) {
       return res.status(403).json({ error: "Non autorisé" });
     }
 
-    Commentaire.message = req.body.message;
-    Commentaire.updatedAt = Date.now();
-    await Commentaire.save();
+    comment.message = req.body.message;
+    comment.updatedAt = Date.now();
+    await comment.save();
 
-    const populatedComment = await Commentaire.populate("user", "nom prenom userLogin");
+    const populatedComment = await comment.populate("user", "nom prenom userLogin");
     res.json(populatedComment);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -53,11 +53,11 @@ exports.deleteComment = async (req, res) => {
     const comment = await Commentaire.findById(req.params.id);
     if (!comment) return res.status(404).json({ error: "Commentaire introuvable" });
 
-    if (Commentaire.user.toString() !== req.user._id.toString()) {
+    if (comment.user.toString() !== req.user._id.toString()) {
       return res.status(403).json({ error: "Non autorisé" });
     }
 
-    await Commentaire.deleteOne();
+    await comment.deleteOne();
     res.json({ message: "Commentaire supprimé" });
   } catch (err) {
     res.status(500).json({ error: err.message });
