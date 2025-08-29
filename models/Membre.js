@@ -14,7 +14,12 @@ const membreSchema = new mongoose.Schema({
   veuxIntegrer: Boolean,
   visiteMaison: Boolean,
   contactRegulier: Boolean,
+  veuxFaireBapteme: Boolean,
   note: String,
+  image: {
+    type: String,
+    default: "" // par défaut vide
+  },
   suivi: {
     dimanche1: { type: Boolean, default: false },
     dimanche2: { type: Boolean, default: false },
@@ -23,7 +28,7 @@ const membreSchema = new mongoose.Schema({
   },
   referentId: { 
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'Referent',  //User
+    ref: 'Referent',  
     required: true
    },
   

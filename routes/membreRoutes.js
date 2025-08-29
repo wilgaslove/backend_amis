@@ -7,8 +7,20 @@ const {
   modifierMembre,
   supprimerMembre,
   compterMembresParReferent, 
-
+  
 } = require("../controllers/membreController");
+
+
+// utilisation de multer pour la gestion des fichiers
+const multer = require('multer'); 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "uploads/"),
+  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
+});
+
+const upload = multer({ storage: storage });
+
+
 
 const authMiddleware = require('../middlewares/authMiddleware'); // ✅ Garder une seule fois
 const checkRole = require('../middlewares/checkRole');
@@ -16,7 +28,9 @@ const checkRole = require('../middlewares/checkRole');
 
 
 // Ajouter un membre (référent uniquement)
-router.post('/membres', authMiddleware, checkRole(['referent']), ajouterMembre);
+// router.post('/membres', authMiddleware, checkRole(['referent']), ajouterMembre);
+router.post("/membres", authMiddleware, checkRole(["referent"]), upload.single("image"), ajouterMembre);
+
 
 // Lister tous les membres (admin, leader uniquement)
 router.get('/membres', authMiddleware, checkRole(['admin', 'leader']), listerMembres);
