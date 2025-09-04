@@ -9,16 +9,13 @@ const {
   compterMembresParReferent, 
   
 } = require("../controllers/membreController");
+// const upload = require("../middlewares/upload");
 
+const multer = require('multer');
+const path = require("path");
 
 // utilisation de multer pour la gestion des fichiers
-const multer = require('multer'); 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/"),
-  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
-});
 
-const upload = multer({ storage: storage });
 
 
 
@@ -26,10 +23,29 @@ const authMiddleware = require('../middlewares/authMiddleware'); // ✅ Garder u
 const checkRole = require('../middlewares/checkRole');
 
 
+// Configuration de Multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Répertoire où l'image sera stockée
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Renomme le fichier
+  },
+});
+
+
+const upload = multer({ storage });
 
 // Ajouter un membre (référent uniquement)
 // router.post('/membres', authMiddleware, checkRole(['referent']), ajouterMembre);
-router.post("/membres", authMiddleware, checkRole(["referent"]), upload.single("image"), ajouterMembre);
+router.post(
+  "/membres",
+  authMiddleware,
+  checkRole(["referent"]),
+  upload.single("image"), // <-- ici le champ doit s’appeler "image"
+  ajouterMembre
+);
+
 
 
 // Lister tous les membres (admin, leader uniquement)
