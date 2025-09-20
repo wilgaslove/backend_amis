@@ -31,9 +31,6 @@ mongoose
   .then(() => console.log("✅ Connexion réussie à MongoDB Atlas"))
   .catch((err) => console.error("❌ Erreur de connexion :", err));
 
-// Middleware pour servir les fichiers statiques (images)
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
- 
 
 app.use("/api", authRoutes);
 

@@ -9,42 +9,37 @@ const {
   compterMembresParReferent, 
   
 } = require("../controllers/membreController");
-// const upload = require("../middlewares/upload");
-
-const multer = require('multer');
-const path = require("path");
-
-// utilisation de multer pour la gestion des fichiers
-
-
-
-
-const authMiddleware = require('../middlewares/authMiddleware'); // ✅ Garder une seule fois
+const authMiddleware = require('../middlewares/authMiddleware'); 
 const checkRole = require('../middlewares/checkRole');
 
+const upload = require("../middlewares/upload");
 
-// Configuration de Multer
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Répertoire où l'image sera stockée
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Renomme le fichier
-  },
+
+
+
+// Route pour ajouter un membre avec upload d'image
+// Exemple avec Express + Mongoose
+router.post("/membres", upload.single("image"), async (req, res) => {
+  try {
+    if (!req.body.dateArrivee) delete req.body.dateArrivee;
+
+    const membre = new Membre({
+      ...req.body,
+      image: req.file ? `/uploads/${req.file.filename}` : null,
+    });
+
+    await membre.save();
+    res.status(201).json({ message: "Membre ajouté avec succès", membre });
+  } catch (error) {
+    console.error("Erreur lors de l'ajout du membre:", error);
+    res.status(500).json({ message: "Erreur lors de l'ajout du membre", error });
+  }
 });
 
 
-const upload = multer({ storage });
 
 // Ajouter un membre (référent uniquement)
-// router.post('/membres', authMiddleware, checkRole(['referent']), ajouterMembre);
-router.post(
-  "/membres",
-  authMiddleware,
-  checkRole(["referent"]),
-  upload.single("image"), // <-- ici le champ doit s’appeler "image"
-  ajouterMembre
-);
+//  router.post('/membres', authMiddleware, checkRole(['referent']), ajouterMembre);
 
 
 
