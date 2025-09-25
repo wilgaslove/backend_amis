@@ -1,4 +1,3 @@
-
 const Membre = require("../models/Membre");
 const Referent = require("../models/Referent");
 
@@ -8,7 +7,7 @@ exports.ajouterMembre = async (req, res) => {
     const user = req.user;
 
     // Ajouter l'ID du référent dans le corps de la requête si l'utilisateur est un référent
-    if (user.role === 'referent') {
+    if (user.role === "referent") {
       req.body.referentId = user._id;
     }
 
@@ -25,16 +24,18 @@ exports.ajouterMembre = async (req, res) => {
 
     // Répondre avec les informations du membre créé
     res.status(201).json({
-      message: 'Membre créé avec succès',
+      message: "Membre créé avec succès",
       membre: {
         id: nouveauMembre._id,
         firstName: nouveauMembre.firstName,
-        lastName: nouveauMembre.lastName
-      }
+        lastName: nouveauMembre.lastName,
+      },
     });
   } catch (err) {
     console.error("❌ Erreur ajout membre :", err);
-    res.status(500).json({ message: "Erreur lors de l'ajout du membre", error: err });
+    res
+      .status(500)
+      .json({ message: "Erreur lors de l'ajout du membre", error: err });
   }
 };
 
@@ -78,22 +79,15 @@ const upload = multer({ storage });
 // };
 
 
-
-
-
-
-
 // Lister tous les membres
 exports.listerMembres = async (req, res) => {
   try {
     const membres = await Membre.find();
     res.json(membres);
-  
   } catch (err) {
     res.status(500).json({ message: "Erreur", error: err });
   }
 };
-
 
 // Lister les membres du référent connecté
 exports.membresParReferent = async (req, res) => {
@@ -103,7 +97,7 @@ exports.membresParReferent = async (req, res) => {
     const membres = await Membre.find({ referentId });
     res.status(200).json(membres);
   } catch (error) {
-    res.status(500).json({ message: 'Erreur serveur', error });
+    res.status(500).json({ message: "Erreur serveur", error });
   }
 };
 
@@ -125,20 +119,29 @@ exports.modifierMembre = async (req, res) => {
 
     const membre = await Membre.findById(membreId);
     if (!membre) {
-      return res.status(404).json({ message: 'Membre non trouvé' });
+      return res.status(404).json({ message: "Membre non trouvé" });
     }
 
     // Si le référent tente de modifier un membre qui n’est pas le sien
-    if (req.user.role === 'referent' && membre.referentId.toString() !== req.user.id) {
-      return res.status(403).json({ message: 'Accès refusé. Ce membre ne vous est pas assigné.' });
+    if (
+      req.user.role === "referent" &&
+      membre.referentId.toString() !== req.user.id
+    ) {
+      return res
+        .status(403)
+        .json({ message: "Accès refusé. Ce membre ne vous est pas assigné." });
     }
 
     // Mise à jour
-    const membreMisAJour = await Membre.findByIdAndUpdate(membreId, req.body, { new: true });
+    const membreMisAJour = await Membre.findByIdAndUpdate(membreId, req.body, {
+      new: true,
+    });
 
-    res.status(200).json({ message: 'Membre mis à jour', membre: membreMisAJour });
+    res
+      .status(200)
+      .json({ message: "Membre mis à jour", membre: membreMisAJour });
   } catch (error) {
-    res.status(500).json({ message: 'Erreur serveur', error });
+    res.status(500).json({ message: "Erreur serveur", error });
   }
 };
 
@@ -149,20 +152,23 @@ exports.supprimerMembre = async (req, res) => {
 
     const membre = await Membre.findById(membreId);
     if (!membre) {
-      return res.status(404).json({ message: 'Membre non trouvé' });
+      return res.status(404).json({ message: "Membre non trouvé" });
     }
 
     // Si le référent tente de supprimer un membre qui ne lui appartient pas
-    if (req.user.role === 'referent' && membre.referentId.toString() !== req.user.id) {
-      return res.status(403).json({ message: 'Accès refusé. Ce membre ne vous est pas assigné.' });
+    if (
+      req.user.role === "referent" &&
+      membre.referentId.toString() !== req.user.id
+    ) {
+      return res
+        .status(403)
+        .json({ message: "Accès refusé. Ce membre ne vous est pas assigné." });
     }
 
     await Membre.findByIdAndDelete(membreId);
 
-    res.status(200).json({ message: 'Membre supprimé avec succès.' });
+    res.status(200).json({ message: "Membre supprimé avec succès." });
   } catch (error) {
-    res.status(500).json({ message: 'Erreur serveur', error });
+    res.status(500).json({ message: "Erreur serveur", error });
   }
 };
-
-
