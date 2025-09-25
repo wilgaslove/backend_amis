@@ -41,7 +41,7 @@ app.use("/api", membreRoutes);
 app.use("/api", require("./routes/userRoutes"));
 
 //récupéré les membres
-app.use("/api/membres", require("./routes/membreRoutes"));
+// app.use("/api/membres", require("./routes/membreRoutes"));
 
 // //api récupération des référents
 app.use("/api/referents", require("./routes/referentRoutes"));

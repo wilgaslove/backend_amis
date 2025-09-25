@@ -95,7 +95,7 @@ exports.referentsEtLeursMembres = async (req, res) => {
     const currentUser = req.user;
 
     // Vérifie si l'utilisateur a le droit d'accès
-    if (!["admin", "leader"].includes(currentUser.role)) {
+    if (!["admin", "leader", "referent"].includes(currentUser.role)) {
       return res.status(403).json({ message: "Accès refusé" });
     }
 
