@@ -12,30 +12,6 @@ const {
 const authMiddleware = require('../middlewares/authMiddleware'); 
 const checkRole = require('../middlewares/checkRole');
 
-const upload = require("../middlewares/upload");
-
-
-
-
-// Route pour ajouter un membre avec upload d'image
-// Exemple avec Express + Mongoose
-// router.post("/membres", upload.single("image"), async (req, res) => {
-//   try {
-//     if (!req.body.dateArrivee) delete req.body.dateArrivee;
-
-//     const membre = new Membre({
-//       ...req.body,
-//       image: req.file ? `/uploads/${req.file.filename}` : null,
-//     });
-
-//     await membre.save();
-//     res.status(201).json({ message: "Membre ajouté avec succès", membre });
-//   } catch (error) {
-//     console.error("Erreur lors de l'ajout du membre:", error);
-//     res.status(500).json({ message: "Erreur lors de l'ajout du membre", error });
-//   }
-// });
-
 
 
 // Ajouter un membre (référent uniquement)
