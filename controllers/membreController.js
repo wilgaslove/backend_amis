@@ -52,7 +52,7 @@ const path = require("path");
 //   },
 // });
 
-const upload = multer({ storage });
+// const upload = multer({ storage });
 
 // ===== ROUTE AJOUT MEMBRE =====
 // exports.ajouterMembre = async (req, res) => {
