@@ -18,7 +18,6 @@ const membreSchema = new mongoose.Schema({
   veuxFaireBapteme: Boolean,
   note: String,
   dePassage: Boolean,
-  // desireBapteme: Boolean,
   commentAvoirRelationChrist: Boolean,
   renouvelleMonEngagement: Boolean,
   nouvelleNaissance: Boolean,
@@ -35,7 +34,7 @@ const membreSchema = new mongoose.Schema({
   referentId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Referent",
-    required: true, // Modifié pour permettre null
+    required: true, 
   },
 });
 
