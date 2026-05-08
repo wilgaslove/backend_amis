@@ -5,8 +5,11 @@ const membreSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   profession: String,
+  Sexe: String,
+  situationMatrimoniale: String,
   contact: String,
   address: String,
+  mail: String,
   dateArrivee: Date,
   baptise: Boolean,
   requetePriere: String,
@@ -18,9 +21,22 @@ const membreSchema = new mongoose.Schema({
   veuxFaireBapteme: Boolean,
   note: String,
   dePassage: Boolean,
-  commentAvoirRelationChrist: Boolean,
-  renouvelleMonEngagement: Boolean,
+  // commentAvoirRelationChrist: Boolean,
+  // renouvelleMonEngagement: Boolean,
   nouvelleNaissance: Boolean,
+
+  commentvousAvezConnuEglise: {
+    reseauSociaux: Boolean,
+    invitation: Boolean,
+    passegeProximite: Boolean,
+    autre: String,
+  },
+
+  personneUrgence: {
+    nomPrenom: String,
+    contact: String,
+  },
+
   image: String, 
   
    genre: { type: String, enum: ['Homme', 'Femme', 'Autre'] },
