@@ -42,41 +42,6 @@ exports.ajouterMembre = async (req, res) => {
 const multer = require("multer");
 const path = require("path");
 
-// config du stockage
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "uploads/");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, Date.now() + path.extname(file.originalname));
-//   },
-// });
-
-// const upload = multer({ storage });
-
-// ===== ROUTE AJOUT MEMBRE =====
-// exports.ajouterMembre = async (req, res) => {
-//   try {
-//     console.log("📩 Body reçu :", req.body);
-//     console.log("📷 Fichier reçu :", req.file);
-
-//     // Récupérer l'id du référent depuis l'utilisateur connecté
-//     const referentId = req.user._id;  // ou req.user.id selon ton middleware
-
-//     const newMembre = new Membre({
-//       ...req.body,
-//       referentId, // auto lié au user connecté
-//       image: req.file ? req.file.filename : null
-//     });
-
-//     await newMembre.save();
-
-//     res.status(201).json({ message: "✅ Membre ajouté avec succès", membre: newMembre });
-//   } catch (error) {
-//     console.error("❌ Erreur ajout membre :", error);
-//     res.status(500).json({ message: "Erreur lors de l'ajout du membre", error: error.message });
-//   }
-// };
 
 
 // Lister tous les membres

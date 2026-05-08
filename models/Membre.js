@@ -25,10 +25,10 @@ const membreSchema = new mongoose.Schema({
   // renouvelleMonEngagement: Boolean,
   nouvelleNaissance: Boolean,
 
-  commentvousAvezConnuEglise: {
+  commentVousAvezConnuEglise: {
     reseauSociaux: Boolean,
     invitation: Boolean,
-    passegeProximite: Boolean,
+    passageProximite: Boolean,
     autre: String,
   },
 
@@ -52,6 +52,8 @@ const membreSchema = new mongoose.Schema({
     ref: "Referent",
     required: true, 
   },
+
+  timestamps: true,
 });
 
 
