@@ -52,7 +52,7 @@ const membreSchema = new mongoose.Schema({
     ref: "Referent",
     required: true,
   },
-}, {
+}, {  // Ajout de l'option timestamps pour enregistrer les dates de création et de mise à jour
   timestamps: true
 });
 
