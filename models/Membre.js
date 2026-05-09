@@ -58,7 +58,3 @@ const membreSchema = new mongoose.Schema({
 
 
 module.exports = mongoose.model("Membre", membreSchema);
-
-
-
-  
