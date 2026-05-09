@@ -50,9 +50,10 @@ const membreSchema = new mongoose.Schema({
   referentId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Referent",
-    required: true, 
+    required: true,
   },
-
+}, {
+  timestamps: true
 });
 
 
