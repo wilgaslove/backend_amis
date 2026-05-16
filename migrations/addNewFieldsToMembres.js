@@ -42,7 +42,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/backend_amis")
       membre.personneUrgence.contact ??= "";
 
       // Genre
-      membre.genre ??= "Autre";
+      membre.genre ??= "";
 
       // Suivi
       if (!membre.suivi) {
