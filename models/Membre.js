@@ -5,7 +5,7 @@ const membreSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   profession: String,
-  genre: String,
+  // genre: String,
   situationMatrimoniale: String,
   contact: String,
   address: String,
@@ -39,7 +39,12 @@ const membreSchema = new mongoose.Schema({
 
   image: String, 
   
-   genre: { type: String, enum: ['Homme', 'Femme', 'Autre'] },
+  genre: {
+  type: String,
+  enum: ['Homme', 'Femme', 'Autre'],
+  default: 'Autre',
+  required: true
+},
 
   suivi: {
     dimanche1: { type: Boolean, default: false },
