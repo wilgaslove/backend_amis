@@ -29,7 +29,7 @@ const membreSchema = new mongoose.Schema({
     reseauSociaux: Boolean,
     invitation: Boolean,
     passageProximite: Boolean,
-    autre: String,
+    autre: { type: Boolean, default: false },
   },
 
   personneUrgence: {
@@ -37,8 +37,12 @@ const membreSchema = new mongoose.Schema({
     contact: String,
   },
 
-  image: String, 
-  
+  // Photo : stockée en base (le disque de l'hébergeur est éphémère).
+  // photoData n'est jamais renvoyé dans les listes (select: false) ; hasPhoto sert d'indicateur.
+  hasPhoto: { type: Boolean, default: false },
+  photoType: { type: String, select: false },
+  photoData: { type: Buffer, select: false },
+
   genre: {
   type: String,
   enum: ['Homme', 'Femme', 'Autre'],
@@ -52,14 +56,23 @@ const membreSchema = new mongoose.Schema({
     dimanche3: { type: Boolean, default: false },
     dimanche4: { type: Boolean, default: false },
   },
+  // Référent (compte User) qui gère ce suivi
   referentId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Referent",
+    ref: "User",
     required: true,
+  },
+  // Instance (copie de celle du référent, pour filtrer vite)
+  instance: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Instance",
+    index: true,
   },
 }, {  // Ajout de l'option timestamps pour enregistrer les dates de création et de mise à jour
   timestamps: true
 });
 
+
+membreSchema.index({ referentId: 1 });
 
 module.exports = mongoose.model("Membre", membreSchema);

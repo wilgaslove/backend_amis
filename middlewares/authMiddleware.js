@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
+const JWT_SECRET = process.env.JWT_SECRET || "secret_key";
+
 const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -11,19 +13,20 @@ const authMiddleware = async (req, res, next) => {
   const token = authHeader.split(" ")[1];
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || "secret_key");
+    const decoded = jwt.verify(token, JWT_SECRET);
 
-    // 🔍 On récupère l'utilisateur depuis la base de données
-    const user = await User.findById(decoded.id).select("-password");
-
+    const user = await User.findById(decoded.id).select("-motDePasse");
     if (!user) {
       return res.status(401).json({ message: "Utilisateur introuvable" });
     }
 
-    req.user = user; // ✅ On attache l’objet User complet
+    // Compatibilité : l'ancien rôle "admin" (en base non migrée) = pasteur principal
+    if (user.role === "admin") user.role = "pasteur";
+
+    req.user = user;
     next();
   } catch (err) {
-    console.error("Erreur de validation du token :", err);
+    console.error("Erreur de validation du token :", err.message);
     return res.status(403).json({ message: "Token invalide." });
   }
 };
